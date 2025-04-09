@@ -7,7 +7,6 @@ using namespace::std;
 //base class
 class Book {
 protected:
-    /* data */
     string title;
     string author;
     bool isAvailable;
@@ -107,18 +106,18 @@ int main() {
             std::cout << "Genre: "; std::getline(std::cin, extra);
             library.addBook(std::make_unique<FictionBook>(title, author, extra));
             break;
-        
+
         case 2: //add nonfiction book
             std::cout << "Title: "; std::getline(std::cin, title);
             std::cout << "Author: "; std::getline(std::cin, author);
             std::cout << "Subject: "; std::getline(std::cin, extra);
             library.addBook(std::make_unique<NonFictionBook>(title, author, extra));
             break;
-        
+
         case 3: //display all books
             library.displayAllBooks();
             break;
-        
+
         case 4: //borrow book
             std::cout << "Enter the title of the book to borrow ";
             std::getline(std::cin, title);
@@ -128,12 +127,12 @@ int main() {
         case 5: //exit
             std::cout << "Exiting..." << std::endl;
             break;
-        
+
         default:
             std::cout << "Invalid choice" << std::endl;
         }
     } while (choice != 5);
 
     return 0;
-    
+
 }
