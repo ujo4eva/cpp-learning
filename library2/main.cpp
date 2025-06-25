@@ -1,76 +1,75 @@
+#include "book.h"
 #include <iostream>
-#include <string>
-
-int global {};
-
-class Book
-{
-    private:
-
-    std::string title;
-    std::string author;
-    int bookID;
-    bool isAvailable;
-
-    public:
-
-    Book(){
-        title = "";
-        author = "";
-        bookID = global;
-        global++;
-        isAvailable = true;
-
-    }
-
-    /*Book(std::string title, std::string author, int bookID, bool isAvailable)
-        : title(title), author(author), bookID(bookID), isAvailable(isAvailable) {}*/
-
-    ~Book()
-    {
-        std::cout << "Book destructor called" << std::endl;
-    }
-
-    void setInfo()
-    {
-        std::cout << "Enter a Title: " << std::endl;
-        std::getline(std::cin, title);
-
-        std::cout << "Enter the Author: " << std::endl;
-        std::getline(std::cin, author);
-    }
-
-    void displayInfo()
-    {
-        std::cout << "ID: " << bookID << '\n';
-        std::cout << "Title: " << title << '\n';
-        std::cout << "Author: " << author << '\n';
-        std::cout << "Availability: " << (isAvailable ? "Available" : "Unavailable") << '\n';
-    }
-
-    void borrowBook()
-    {
-        if (isAvailable == true)
-        {
-            isAvailable = false;
-            std::cout << "Book borrowed successfully!\n";
-        }
-    }
-
-    void returnBook()
-    {
-        if(isAvailable == false)
-        {
-            isAvailable = true;
-            std::cout << "Book returned successfully!\n";
-        }
-    }
-};
 
 int main()
 {
-    std::cout << "Welcome to the Library!";
+    Book books[3];
 
+    Book book1;
+    Book book2;
+    Book book3("Great Expectations", "Charles Dickens", 1932);
+
+    while(books)
+    {
+        std::cout << "Welcome to the Library!\n\n";
+        std::cout << "Select option 1-4 below:\n";
+        std::cout << "1. Display all books\n";
+        std::cout << "2. Borrow or Return a book\n";
+        std::cout << "3. Update book";
+        std::cout << "4. Exit\n\n\n";
+
+        std::cout << "Enter your choice: ";
+        int choice {};
+        std::cin >> choice;
+
+        switch(choice)
+        {
+            case 1:
+            {
+                std::cout << "Displaying all books: \n";
+                for (int i {}; i < 3; i++)
+                {
+                    books[i].displayInfo();
+                }
+            }
+
+            case 2:
+            {
+                std::cout << "Enter the ID of the book you want to borrow: ";
+                int id {};
+                std::cin >> id;
+
+                for (int i {}; i < 3; i++)
+                {
+                    if (books[i].getID() == id)
+                    {
+                        books[i].borrowOrReturn();
+                    }
+                }
+            }
+
+            case 3:
+            {
+                std::cout << "Enter the ID of the book you want to update: ";
+                int id {};
+                std::cin >> id;
+
+                for (int i {}; i << 3; i++)
+                {
+                    if (books[i].getID() == id)
+                    {
+                        books[i].updateBook();
+                    }
+                }
+            }
+
+            case 4:
+            {
+                std::cout << "Exiting...\n";
+                break;
+            }
+        }
+    }
 
     return 0;
 }
