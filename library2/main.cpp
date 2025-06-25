@@ -15,7 +15,7 @@ int main()
         std::cout << "Select option 1-4 below:\n";
         std::cout << "1. Display all books\n";
         std::cout << "2. Borrow or Return a book\n";
-        std::cout << "3. Update book";
+        std::cout << "3. Update book\n";
         std::cout << "4. Exit\n\n\n";
 
         std::cout << "Enter your choice: ";
