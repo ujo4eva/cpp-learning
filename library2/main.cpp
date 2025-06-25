@@ -3,10 +3,10 @@
 
 int main()
 {
-    Book books[3] = {
-            Book("C++ Primer", "Stanley Lippman", 2012),
-            Book("Great Expectations", "Charles Dickens", 1861),
-            Book("Clean Code", "Robert Martin", 2008)
+    Book* books[3] = {
+            new Book("C++ Primer", "Stanley Lippman", 2012),
+            new Book("Great Expectations", "Charles Dickens", 1861),
+            new Book("Clean Code", "Robert Martin", 2008)
         };
 
     std::cout << "Welcome to the Library!\n\n";
@@ -30,7 +30,7 @@ int main()
                 std::cout << "Displaying all books: \n";
                 for (int i {}; i < 3; i++)
                 {
-                    books[i].displayInfo();
+                    books[i]->displayInfo();
                 }
             }
 
@@ -42,9 +42,9 @@ int main()
 
                 for (int i {}; i < 3; i++)
                 {
-                    if (books[i].getID() == id)
+                    if (books[i]->getID() == id)
                     {
-                        books[i].borrowOrReturn();
+                        books[i]->borrowOrReturn();
                     }
                 }
             }
@@ -59,9 +59,9 @@ int main()
 
                 for (int i {}; i < 3; i++)
                 {
-                    if (books[i].getID() == id)
+                    if (books[i]->getID() == id)
                     {
-                        books[i].updateBook();
+                        books[i]->updateBook();
                     }
                 }
             }
