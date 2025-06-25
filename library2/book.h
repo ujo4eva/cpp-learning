@@ -3,31 +3,48 @@
 
 #include <iostream>
 #include <string>
+#include <string_view>
 
-int global_ID {};
-
-class Book
+class LibraryItem
 {
+    protected:
+
+    static int nextID;
     int id;
     std::string title;
+
+    public:
+
+    LibraryItem() : id(nextID++), title("") {}
+
+    LibraryItem(std::string_view title) : id(nextID++), title(title) {}
+
+    virtual ~LibraryItem()
+    {
+        std::cout << "LibraryItem destructor called\n";
+    }
+};
+
+class Book : public LibraryItem
+{
+    protected:
+
     std::string author;
     int publishYear;
     bool isAvailable;
 
     public:
 
-    Book()
-    {
-        id = global_ID++;
-        title = "";
-        author = "";
-        publishYear = 0;
-        isAvailable = true;
-    }
+    Book() : LibraryItem(), author(""), publishYear(0), isAvailable(true) {}
 
     Book(const std::string& title, const std::string& author, int publishYear) :
-        id(global_ID++), title(title), author(author), publishYear(publishYear), isAvailable(true)
+        LibraryItem(title), author(author), publishYear(publishYear), isAvailable(true)
     {}
+
+    ~Book()
+    {
+        std::cout << "Book destructor called\n";
+    }
 
     void setTitle()
     {
@@ -38,15 +55,23 @@ class Book
 
     void setAuthor()
     {
-        std::cout << "Enter a new title: ";
+        std::cout << "Enter a new author: ";
         std::getline(std::cin, author);
         std::cout << "Author updated!";
     }
 
     void setPubYear()
     {
+        int newYear {};
         std::cout << "Enter a new publishing year: ";
-        std::cin >> publishYear;
+        std::cin >> newYear;
+
+        while (!(newYear > 0 && newYear <= 2025))
+        {
+            std::cout << "Invalid year. Please enter a year between 1 and 2025: ";
+            std::cin >> newYear;
+        }
+
         std::cout << "Publishing year updated!";
     }
 
@@ -57,27 +82,27 @@ class Book
         setPubYear();
     }
 
-    int getID()
+    int getID() const
     {
         return id;
     }
 
-    std::string getTitle()
+    std::string getTitle() const
     {
         return title;
     }
 
-    std::string getAuthor()
+    std::string getAuthor() const
     {
         return author;
     }
 
-    int getpublishYear()
+    int getpublishYear() const
     {
-        return getpublishYear();
+        return publishYear;
     }
 
-    bool getAvailability()
+    bool getAvailability() const
     {
         return isAvailable;
     }
@@ -95,7 +120,7 @@ class Book
         }
     }
 
-    void displayInfo()
+    void displayInfo() const
     {
         std::cout << "Book ID: " << id << '\n';
         std::cout << "Title: " << title << '\n';
@@ -104,5 +129,6 @@ class Book
         std::cout << "Availability: " << (isAvailable ? "Available\n\n" : "Unavailable\n\n");
     }
 };
+
 
 #endif

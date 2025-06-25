@@ -1,17 +1,18 @@
 #include "book.h"
-#include <iostream>
+#include <cstdlib>
 
 int main()
 {
-    Book books[3];
+    Book books[3] = {
+            Book("C++ Primer", "Stanley Lippman", 2012),
+            Book("Great Expectations", "Charles Dickens", 1861),
+            Book("Clean Code", "Robert Martin", 2008)
+        };
 
-    Book book1;
-    Book book2;
-    Book book3("Great Expectations", "Charles Dickens", 1932);
+    std::cout << "Welcome to the Library!\n\n";
 
-    while(books)
+    while(true)
     {
-        std::cout << "Welcome to the Library!\n\n";
         std::cout << "Select option 1-4 below:\n";
         std::cout << "1. Display all books\n";
         std::cout << "2. Borrow or Return a book\n";
@@ -54,7 +55,9 @@ int main()
                 int id {};
                 std::cin >> id;
 
-                for (int i {}; i << 3; i++)
+                std::cin.ignore();
+
+                for (int i {}; i < 3; i++)
                 {
                     if (books[i].getID() == id)
                     {
@@ -66,7 +69,12 @@ int main()
             case 4:
             {
                 std::cout << "Exiting...\n";
-                break;
+                exit(0);
+            }
+
+            default:
+            {
+                std::cout << "Invalid choice!\n";
             }
         }
     }
