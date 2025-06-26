@@ -1,10 +1,11 @@
 #include <iostream>
 #include <string>
 
-class SystemValidationException
+class SystemValidationException : public std::exception
 {
     std::string name;
     int serialNumber;
+    std::string message;
 
     public:
 
@@ -16,6 +17,11 @@ class SystemValidationException
         }
     }
     ~SystemValidationException() {}
+
+    const char* what() const noexcept override
+    {
+        return message.c_str();
+    }
 
 };
 
