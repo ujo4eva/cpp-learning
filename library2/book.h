@@ -2,6 +2,7 @@
 #define BOOK_H
 
 #include <iostream>
+#include <stdexcept>
 #include <string>
 #include <string_view>
 
@@ -50,6 +51,13 @@ class Book : public LibraryItem
     {
         std::cout << "Enter a new title: ";
         std::getline(std::cin, title);
+
+        while (title.empty())
+        {
+            throw std::invalid_argument("Title cannot be empty");
+            std::getline(std::cin, title);
+        }
+
         std::cout << "Title updated!";
     }
 
@@ -57,6 +65,13 @@ class Book : public LibraryItem
     {
         std::cout << "Enter a new author: ";
         std::getline(std::cin, author);
+
+        while (author.empty())
+        {
+            throw std::invalid_argument("Author cannot be empty");
+            std::getline(std::cin, author);
+        }
+
         std::cout << "Author updated!";
     }
 
@@ -68,7 +83,7 @@ class Book : public LibraryItem
 
         while (!(newYear > 0 && newYear <= 2025))
         {
-            std::cout << "Invalid year. Please enter a year between 1 and 2025: ";
+            throw std::invalid_argument("Invalid year " + std::to_string(newYear));
             std::cin >> newYear;
         }
 
@@ -77,9 +92,29 @@ class Book : public LibraryItem
 
     void updateBook()
     {
-        setTitle();
-        setAuthor();
-        setPubYear();
+        try
+        {
+            setTitle();
+        } catch (const std::invalid_argument& e)
+        {
+            std::cerr << "Error: " << e.what() << '\n';
+        }
+
+        try
+        {
+            setAuthor();
+        } catch (const std::invalid_argument& e)
+        {
+            std::cerr << "Error: " << e.what() << '\n';
+        }
+
+        try
+        {
+            setPubYear();
+        } catch (const std::invalid_argument& e)
+        {
+            std::cerr << "Error: " << e.what() << '\n';
+        }
     }
 
     int getID() const
